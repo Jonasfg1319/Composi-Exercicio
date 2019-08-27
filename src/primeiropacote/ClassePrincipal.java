@@ -16,30 +16,27 @@ public class ClassePrincipal {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Scanner sc = new Scanner(System.in);
 		HourContract contra; 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		
 		
 		System.out.println("Enter Departament name");
-		Departament dp = new Departament();
-		dp.Depar = sc.next();
+		String dd = sc.next();
 		System.out.println("Enter Worker Data:");
 		System.out.println("name: ");
 		String name = sc.next();
 		System.out.println("Level: ");
-		WorkerLevel level = WorkerLevel.valueOf(sc.next());
+		String level = sc.next();
 		System.out.println("Base Salary: ");
         Double BaseSalary = sc.nextDouble();
-        Worker wo;
-        wo = new Worker(name,level,BaseSalary);
+        Worker wo = new Worker(name,WorkerLevel.valueOf(level),BaseSalary,new Departament(dd));
         
         System.out.println("How mani contracts?");
         int ctq = sc.nextInt();
         
         for(int i = 0; i < ctq; i++) 
         {
-        	System.out.println(i+1+"#Contract: ");
+        	System.out.print(i+1+"#Contract: ");
         	System.out.println("Date(YY/MM/YYYY)");
-        	String ano = sc.next();
-        	Date dt = sdf.parse(ano);
+        	Date dt = sdf.parse(sc.next());
         	System.out.println("Value per hour");
         	Double valueper = sc.nextDouble();
         	System.out.println("Hour");
@@ -49,12 +46,13 @@ public class ClassePrincipal {
         }
         
         System.out.println("Enter month and yer for calcule income");
-        int month = sc.nextInt();
-        int yer = sc.nextInt();
-        wo.IncomeYears(yer, month);
-        System.out.println("Departament: "+dp.getDepar());
+        String monthandyear = sc.next();
+        int month = Integer.parseInt(monthandyear.substring(0, 2));
+        int year = Integer.parseInt(monthandyear.substring(3));
+        wo.IncomeYears(year, month);
+        System.out.println("Departament: "+wo.departament.getDepar());
         System.out.println("Name: "+wo.getName());
-        System.out.println("Income for "+month+"/"+yer+" : "+wo.IncomeYears(yer, month));
+        System.out.println("Income for "+month+"/"+year+" : "+wo.IncomeYears(year, month));
         
        
 		
